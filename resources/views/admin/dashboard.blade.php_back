@@ -1,0 +1,1560 @@
+@extends('layouts.admin')
+
+@section('header_styles')
+    <style>
+        nav #nav-tab.nav-tabs {
+            border: none;
+        }
+
+        nav #nav-tab button {
+            padding: 8px 30px;
+            font-size: 24px;
+            min-width: 96px;
+            margin-right: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            background-color: transparent;
+        }
+
+        nav #nav-tab button:focus {
+            outline: none;
+        }
+
+        nav #nav-tab button:hover,
+        nav #nav-tab button.active {
+            border-color: green;
+            border-radius: 5px 5px 0 0;
+            background-color: white;
+            border-bottom-color: white;
+        }
+
+        .tab-content .tab-pane {
+            background-color: white;
+        }
+
+        .tab-content .tab-pane.active {
+            padding: 30px 0;
+            margin-top: -1px;
+            border-top: 1px solid green;
+            border-radius: 0 0 5px 5px;
+        }
+
+        table tbody tr th:first-child {
+            font-size: 24px !important;
+        }
+
+        table.table.stats tbody td {
+            text-align: center;
+        }
+    </style>
+@endsection
+
+@section('content')
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="text-center my-3">Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="x_panel py-4 px-2">
+            <div class="x_content mt-0">
+                <div class="col-12">
+                    <nav>
+                        <div id="nav-tab" class="nav nav-tabs" role="tablist">
+                            <button id="nav-all-tab" class="nav-link active" data-toggle="tab" data-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">All</button>
+                            <button id="nav-bridges-tab" class="nav-link" data-toggle="tab" data-target="#nav-bridges" type="button" role="tab" aria-controls="nav-bridges" aria-selected="false">Bridges</button>
+                            <button id="nav-slopes-tab" class="nav-link" data-toggle="tab" data-target="#nav-slopes" type="button" role="tab" aria-controls="nav-slopes" aria-selected="false">Slopes Protection</button>
+                            <button id="nav-consult-tab" class="nav-link" data-toggle="tab" data-target="#nav-consult" type="button" role="tab" aria-controls="nav-consult" aria-selected="false">Consultancy</button>
+                        </div>
+                    </nav>
+                    <div id="nav-tabContent" class="tab-content">
+                        <div id="nav-all" class="tab-pane fade show active" role="tabpanel">
+                            <div class="pane-content">
+                                <div class="table-responsive">
+                                    <table class="table stats table-bordered">
+                                        <thead>
+                                            <th>Contract Type</th>
+                                            {{-- <th>Under Readiness</th> --}}
+                                            <th>LOA Issued</th>
+                                            <th>Contract Signed</th>
+                                            <th>Start Date Given</th>
+                                            <th>LOA to be issued</th>
+                                            <th>Contract Signing Pending</th>
+                                            <th>To be Re-bidded</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>EPC</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->all->epc->stats->loai }}</td>
+                                                <td>{{ $tableData->all->epc->stats->signed }}</td>
+                                                <td>{{ $tableData->all->epc->stats->startd }}</td>
+                                                <td>{{ $tableData->all->epc->stats->loatbi }}</td>
+                                                <td>{{ $tableData->all->epc->stats->signpn }}</td>
+                                                <td>{{ $tableData->all->epc->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Item</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->all->item->stats->loai }}</td>
+                                                <td>{{ $tableData->all->item->stats->signed }}</td>
+                                                <td>{{ $tableData->all->item->stats->startd }}</td>
+                                                <td>{{ $tableData->all->item->stats->loatbi }}</td>
+                                                <td>{{ $tableData->all->item->stats->signpn }}</td>
+                                                <td>{{ $tableData->all->item->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Cost (Cr.)</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p>
+                                        <em>*Each sub-project consists of a single work either a bridge or a slope protection work.</em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="nav-bridges" class="tab-pane fade" role="tabpanel">
+                            <div class="pane-content">
+                                <div class="table-responsive">
+                                    <table class="table stats table-bordered">
+                                        <thead>
+                                            <th>Contract Type</th>
+                                            {{-- <th>Under Readiness</th> --}}
+                                            <th>LOA Issued</th>
+                                            <th>Contract Signed</th>
+                                            <th>Start Date Given</th>
+                                            <th>LOA to be issued</th>
+                                            <th>Contract Signing Pending</th>
+                                            <th>To be Re-bidded</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>EPC</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->bridges->epc->stats->loai }}</td>
+                                                <td>{{ $tableData->bridges->epc->stats->signed }}</td>
+                                                <td>{{ $tableData->bridges->epc->stats->startd }}</td>
+                                                <td>{{ $tableData->bridges->epc->stats->loatbi }}</td>
+                                                <td>{{ $tableData->bridges->epc->stats->signpn }}</td>
+                                                <td>{{ $tableData->bridges->epc->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Item</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->bridges->item->stats->loai }}</td>
+                                                <td>{{ $tableData->bridges->item->stats->signed }}</td>
+                                                <td>{{ $tableData->bridges->item->stats->startd }}</td>
+                                                <td>{{ $tableData->bridges->item->stats->loatbi }}</td>
+                                                <td>{{ $tableData->bridges->item->stats->signpn }}</td>
+                                                <td>{{ $tableData->bridges->item->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Cost (Cr.)</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p>
+                                        <em>*Each sub-project consists of a single work either a bridge or a slope protection work.</em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="nav-slopes" class="tab-pane fade" role="tabpanel">
+                            <div class="pane-content">
+                                <div class="table-responsive">
+                                    <table class="table stats table-bordered">
+                                        <thead>
+                                            <th>Contract Type</th>
+                                            {{-- <th>Under Readiness</th> --}}
+                                            <th>LOA Issued</th>
+                                            <th>Contract Signed</th>
+                                            <th>Start Date Given</th>
+                                            <th>LOA to be issued</th>
+                                            <th>Contract Signing Pending</th>
+                                            <th>To be Re-bidded</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>EPC</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->slopes->epc->stats->loai }}</td>
+                                                <td>{{ $tableData->slopes->epc->stats->signed }}</td>
+                                                <td>{{ $tableData->slopes->epc->stats->startd }}</td>
+                                                <td>{{ $tableData->slopes->epc->stats->loatbi }}</td>
+                                                <td>{{ $tableData->slopes->epc->stats->signpn }}</td>
+                                                <td>{{ $tableData->slopes->epc->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Item</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->slopes->item->stats->loai }}</td>
+                                                <td>{{ $tableData->slopes->item->stats->signed }}</td>
+                                                <td>{{ $tableData->slopes->item->stats->startd }}</td>
+                                                <td>{{ $tableData->slopes->item->stats->loatbi }}</td>
+                                                <td>{{ $tableData->slopes->item->stats->signpn }}</td>
+                                                <td>{{ $tableData->slopes->item->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Cost (Cr.)</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p>
+                                        <em>*Each sub-project consists of a single work either a bridge or a slope protection work.</em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="nav-consult" class="tab-pane fade" role="tabpanel">
+                            <div class="pane-content">
+                                <div class="table-responsive">
+                                    <table class="table stats table-bordered">
+                                        <thead>
+                                            <th>Contract Type</th>
+                                            {{-- <th>Under Readiness</th> --}}
+                                            <th>LOA Issued</th>
+                                            <th>Contract Signed</th>
+                                            <th>Start Date Given</th>
+                                            <th>LOA to be issued</th>
+                                            <th>Contract Signing Pending</th>
+                                            <th>To be Re-bidded</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>EPC</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->consultancy->epc->stats->loai }}</td>
+                                                <td>{{ $tableData->consultancy->epc->stats->signed }}</td>
+                                                <td>{{ $tableData->consultancy->epc->stats->startd }}</td>
+                                                <td>{{ $tableData->consultancy->epc->stats->loatbi }}</td>
+                                                <td>{{ $tableData->consultancy->epc->stats->signpn }}</td>
+                                                <td>{{ $tableData->consultancy->epc->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Item</th>
+                                                {{-- <td></td> --}}
+                                                <td>{{ $tableData->consultancy->item->stats->loai }}</td>
+                                                <td>{{ $tableData->consultancy->item->stats->signed }}</td>
+                                                <td>{{ $tableData->consultancy->item->stats->startd }}</td>
+                                                <td>{{ $tableData->consultancy->item->stats->loatbi }}</td>
+                                                <td>{{ $tableData->consultancy->item->stats->signpn }}</td>
+                                                <td>{{ $tableData->consultancy->item->stats->tbereb }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Total</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #034ea2;">Cost (Cr.)</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p>
+                                        <em>*Each sub-project consists of a single work either a bridge or a slope protection work.</em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="text-center py-2" style="color: #fff;font-weight: bold;background-color: #43b14b;">U-PREPARE</h1>
+        </div>
+
+        <div class="col-sm-12">
+            <h2 class="text-center py-2" style="color: #000;background-color: #dedede;">Project Summary Implementation Report</h2>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <th>S.No.</th>
+                        <th>Mode</th>
+                        <th>FPIU</th>
+                        <th>Name of Bridge Works</th>
+                        <th>Awarded Cost (Lakhs)</th>
+                        <th>Contractor Name</th>
+                        <th>Start Date</th>
+                        <th>Completion Date</th>
+                        <th>Physical Progress</th>
+                        <th>Expenditure (Lakhs)</th>
+                        <th>Financial Progress</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Previous Design Below --}}
+    <style>
+        .btn-custom{
+            padding:10px 3% !important;
+        }
+        .outerbox{
+            margin:10px;
+            padding:20px 35px;
+            border-radius:10px;
+            max-width:23% !important;
+        }
+    </style>
+
+    @if(false)
+    <div class="row">
+        @if( (auth()->user()->role->department == "PMU" && auth()->user()->role->level == "ONE") || auth()->user()->role->name == 'ADMIN' )
+            <div class="outerbox col-md-4 bg-primary">
+                <a href="{{ route('mis.projects') }}">
+                    <h5 class="text-white">TOTAL PROJECTS</h5>
+                    <h1  class="text-white"><i class="fa fa-file" ></i> {{ $data['totalProjects'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div class="outerbox col-md-4 bg-danger">
+                <a href="{{ url('project') }}?status=2">
+                    <h5 class="text-white">ONGOING PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['Ongoing'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:rgb(244, 180, 0);" class="outerbox col-md-4">
+                <a href="{{ url('project') }}?status=3">
+                    <h5 class="text-white">COMPLETED PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['completed'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:green;" class="outerbox col-md-4">
+                <a href="javascript:void(0)">
+                    <h5 class="text-white">TOTAL EXPENSE</h5>
+                    <h1  class="text-white"> <i class="fa fa-inr" ></i>
+                    <span style="font-size:28px;">
+                        {{ formatIndianNumberLakh($financialData['Works'] + $financialData['Goods'] + $financialData['Consultancy'] + $financialData['others'] + $financialData['officeExense']) }}
+                    <span>
+                    </h1>
+                </a>
+            </div>
+        @elseif(in_array(auth()->user()->role->department,['PROCUREMENT','USDMA-PROCUREMENT','FOREST-PROCUREMENT','RWD-PROCUREMENT','PWD-PROCUREMENT','PMU-PROCUREMENT']) )
+            <div class="outerbox col-md-4 bg-primary">
+                <a href="{{ route('mis.projects') }}">
+                    <h5 class="text-white">TOTAL PROJECTS</h5>
+                    <h1  class="text-white"><i class="fa fa-file" ></i> {{ $procurement['workTotal'] + $procurement['consultancyTotal'] + $procurement['othersTotal'] + $procurement['goodsTotal']  }}</h1>
+                </a>
+            </div>
+
+            <div class="outerbox col-md-4 bg-danger">
+                <a href="#">
+                    <h5 class="text-white">ONGOING PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $procurement['workTotalP'] + $procurement['goodsTotalP'] + $procurement['othersTotalP'] + $procurement['consultancyTotalP'] }} </h1>
+                </a>
+            </div>
+
+            <div style="background-color:rgb(244, 180, 0);" class="outerbox col-md-4">
+                <a href="#">
+                    <h5 class="text-white">COMPLETED PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $procurement['workTotalC'] + $procurement['goodsTotalC'] + $procurement['consultancyTotalC'] + $procurement['othersTotalC'] }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:green;" class="outerbox col-md-4">
+                <a href="javascript:void(0)">
+                    <h5 class="text-white">TOTAL CONTRACT VALUE</h5>
+                    <h1  class="text-white"> <i class="fa fa-inr" ></i>
+                    <span style="font-size:28px;">
+                        {{ formatIndianNumberLakh($contract['workTotal'] + $contract['goodsTotal'] + $contract['consultancyTotal'] + $contract['othersTotal']) }}
+                    <span>
+                    </h1>
+                </a>
+            </div>
+        @elseif(in_array(auth()->user()->role->name,['PMU-LEVEL-TWO','PIU-LEVEL-TWO-PWD','PIU-LEVEL-TWO-RWD','PIU-LEVEL-TWO-FOREST','PIU-LEVEL-TWO-USDMA']))
+            <div class="outerbox col-md-3 bg-primary">
+                <a href="{{ route('mis.projects') }}">
+                    <h5 class="text-white">TOTAL PROJECTS</h5>
+                    <h1  class="text-white"><i class="fa fa-file" ></i> {{ $data['totalProjects'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div class="outerbox col-md-3 bg-danger">
+                <a href="#">
+                    <h5 class="text-white">ONGOING PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['Ongoing'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:rgb(244, 180, 0);" class="outerbox col-md-3">
+                <a href="#">
+                    <h5 class="text-white">COMPLETED PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['completed'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:green;" class="outerbox col-md-4">
+                <a href="javascript:void(0)">
+                    <h5 class="text-white">TOTAL EXPENSE</h5>
+                    <h1  class="text-white"> <i class="fa fa-inr" ></i>
+                    <span style="font-size:28px;">
+                            {{ formatIndianNumberLakh($financialData['Works'] + $financialData['Goods'] + $financialData['Consultancy'] + $financialData['others'] + $financialData['officeExense']) }}
+                    <span>
+                    </h1>
+                </a>
+            </div>
+        @elseif(in_array(auth()->user()->role->name,['PMU-LEVEL-THREE','PIU-LEVEL-THREE-PWD','PIU-LEVEL-THREE-RWD','PIU-LEVEL-THREE-FOREST','PIU-LEVEL-THREE-USDMA']))
+            <div class="outerbox col-md-3 bg-primary">
+                <a href="{{ route('mis.projects') }}">
+                    <h5 class="text-white">TOTAL PROJECTS</h5>
+                    <h1  class="text-white"><i class="fa fa-file" ></i> {{ $data['totalProjects'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div class="outerbox col-md-3 bg-danger">
+                <a href="#">
+                    <h5 class="text-white">ONGOING PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['Ongoing'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:rgb(244, 180, 0);" class="outerbox col-md-3">
+                <a href="#">
+                    <h5 class="text-white">COMPLETED PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['completed'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:green;" class="outerbox col-md-4">
+                <a href="javascript:void(0)">
+                    <h5 class="text-white">TOTAL EXPENSE</h5>
+                    <h1  class="text-white"> <i class="fa fa-inr" ></i>
+                        <span style="font-size:28px;">
+                            {{ formatIndianNumberLakh($financialData['Works'] + $financialData['Goods'] + $financialData['Consultancy'] + $financialData['others'] + $financialData['officeExense']) }}
+                        </span>
+                    </h1>
+                </a>
+            </div>
+        @else
+            <div class="outerbox col-md-4 bg-primary">
+                <a href="{{ route('mis.projects') }}">
+                    <h5 class="text-white">TOTAL PROJECTS</h5>
+                    <h1  class="text-white"><i class="fa fa-file" ></i> {{ $data['totalProjects'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div class="outerbox col-md-4 bg-danger">
+                <a href="#">
+                    <h5 class="text-white">ONGOING PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['Ongoing'] ?? 0 }}</h1>
+                </a>
+            </div>
+
+            <div style="background-color:rgb(244, 180, 0);" class="outerbox col-md-4">
+                <a href="#">
+                    <h5 class="text-white">COMPLETED PROJECTS</h5>
+                    <h1  class="text-white"> <i class="fa fa-file" ></i> {{ $data['completed'] ?? 0 }}</h1>
+                </a>
+            </div>
+        @endif
+    </div>
+    @endif
+
+    @if(false)
+        @if(auth()->user()->role->level == "NULL" || auth()->user()->role->level == "ONE" || auth()->user()->role->level == 'ADMIN')
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="x_content">
+                                    <!-- bar charts group -->
+                                    <div class="">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Physical Status </h2>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+                                                    <a class="btn btn-md btn-default buttonParam @if(!request()->p) btn-primary @else btn-success @endif btn-custom" data-name="p" data-value=""  href="javascript:void(0);">ALL</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->p == 'PMU') btn-primary @else btn-success  @endif btn-custom " data-name="p" data-value="PMU" href="javascript:void(0);">PMU</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->p == 'PWD') btn-primary @else btn-success @endif btn-custom" data-name="p" data-value="PWD" href="javascript:void(0);">PWD</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->p == 'RWD') btn-primary @else btn-success  @endif  btn-custom" data-name="p" data-value="RWD" href="javascript:void(0);">RWD</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->p == 'USDMA') btn-primary @else btn-success @endif  btn-custom" data-name="p" data-value="USDMA" href="javascript:void(0);">USDMA</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->p == 'FOREST') btn-primary @else btn-success @endif btn-custom " data-name="p" data-value="FOREST" href="javascript:void(0);">FOREST</a>
+
+                                                    <style>
+                                                        #table tbody tr td{
+                                                            text-align: center;
+                                                            color:black;
+                                                        }
+                                                        #table thead tr td,th{
+                                                            text-align: center;
+                                                            color:black;
+                                                        }
+                                                    </style>
+
+                                                    <h5 style="padding-left:20px;margin:10px;">Value In Number</h5>
+                                                    <div id="columnchart_material" style="height: 400px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Financial Status </h2>
+
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+
+                                                    <a class="btn btn-md btn-default buttonParam @if(!request()->f) btn-primary @else btn-success @endif btn-custom" data-name="f" data-value=""  href="javascript:void(0);">ALL</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->f == 'PMU') btn-primary @else btn-success  @endif btn-custom " data-name="f" data-value="PMU" href="javascript:void(0);">PMU</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->f == 'PWD') btn-primary @else btn-success @endif btn-custom" data-name="f" data-value="PWD" href="javascript:void(0);">PWD</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->f == 'RWD') btn-primary @else btn-success  @endif  btn-custom" data-name="f" data-value="RWD" href="javascript:void(0);">RWD</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->f == 'USDMA') btn-primary @else btn-success @endif  btn-custom" data-name="f" data-value="USDMA" href="javascript:void(0);">USDMA</a>
+                                                    <a class="btn btn-md btn-default buttonParam @if(request()->f == 'FOREST') btn-primary @else btn-success @endif btn-custom " data-name="f" data-value="FOREST" href="javascript:void(0);">FOREST</a>
+
+                                                    <h5 style="padding-left:20px;margin:10px;">Value In INR </h5>
+                                                    <div id="columnchart_material1" style="height: 400px;"></div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @if(false)
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h2>Quality Inspection</h2>
+
+                                                        <div class="clearfix"></div>
+                                                    </div>
+
+                                                    <div class="x_content">
+
+                                                        <p>  (RF = RED FLAGS) <br> Red Flags- Project Delayed, Incomplete Environment And Social Compliance, No Site visit, Delay in Updating Status, Procurement Redflags</p>
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <a href="javascript:(0)"  class=" text-white btn btn-lg  btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total PMU(Red Flags) : 1"  >
+                                                                    PMU (RF) : 1
+                                                                </a>
+
+                                                                <!-- <a href="javascript:(0)"  class=" text-white btn btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total PROCUREMENT(Red Flags) : 1" >
+                                                                    PROCUREMENT (RF) : 1
+                                                                </a> -->
+
+                                                                <a href="javascript:(0)"  class=" text-white btn  btn-lg  btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total PWD(Red Flags) : 0"  >
+                                                                    PWD (RF) : 0
+                                                                </a>
+                                                                <a href="javascript:(0)"  class=" text-white btn  btn-lg btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total RWD(Red Flags) : 5"  >
+                                                                    RWD (RF) : 5
+                                                                </a>
+                                                                <a href="javascript:(0)"  class=" text-white btn  btn-lg btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total USDMA(Red Flags) : 3" >
+                                                                    USDMA (RF) : 3
+                                                                </a>
+                                                                <a  href="javascript:(0)"  class=" text-white btn btn-lg  btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total FOREST(Red Flags) : 9" >
+                                                                    FOREST (RF) : 9
+                                                                </a>
+
+                                                                <!-- <a href="javascript:(0)"  class=" text-white btn btn-primary"
+                                                                data-toggle="tooltip" data-placement="top" title="Total ENVIRONMENT(Red Flags) : 1">
+                                                                    ENVIRONMENT (RF) : 1
+                                                                </a> -->
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <!-- /page content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif(in_array(auth()->user()->role->department,['PROCUREMENT','USDMA-PROCUREMENT','FOREST-PROCUREMENT','RWD-PROCUREMENT', 'PWD-PROCUREMENT','PMU-PROCUREMENT']))
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="x_content">
+                                    <!-- bar charts group -->
+                                    <div class="">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Procurement Status</h2>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+                                                    <h5 style="padding-left:20px;margin:10px;">Value In Number</h5>
+                                                    <div id="procuremnt_chart" style=" height: 500px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2><i class="fa fa-bars"></i> Contract Awarded</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <h5 style="padding-left:20px;margin:10px;">Value In INR</h5>
+                                                <div id="contract_chart" style="height: 500px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if(false)
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> PMU All Projects</h2>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+                                                    <div id="pmu_chart" style="height: 600px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                                <!-- /page content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif( in_array(CheckESLevelThree(),[1,2,3]) )
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="x_content">
+                                    <!-- bar charts group -->
+                                    <div class="">
+                                        <div class="col-md-8 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Physical Status</h2>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                    <div class="tab-content" >
+                                                            <h5 style="padding-left:20px;margin:10px;">Value In Number</h5>
+                                                            <div id="PMU_LEVEL_2" style="height: 500px;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /page content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif( (auth()->user()->role->level == "TWO" || auth()->user()->role->level == "THREE") )
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="x_content">
+                                    <!-- bar charts group -->
+                                    <div class="">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Physical Status</h2>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="tab-content" >
+                                                    <h5 style="padding-left:20px;margin:10px;">Value In Number</h5>
+                                                    <div id="PMU_LEVEL_2" style="height: 500px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2><i class="fa fa-bars"></i> Financial Status</h2>
+
+                                                <!--<a target="_blank" href="{{ url('/finance/index') }}" class="btn btn-sm btn-success pull-right">View All </a>-->
+
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                            <div class="x_content">
+                                                <h5 style="padding-left:20px;margin:10px;">Value In INR</h5>
+                                                <div id="financialChart" style="height: 500px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /page content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif(false)
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="x_content">
+                                    <!-- bar charts group -->
+                                    <div class="">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Physical Status</h2>
+                                                    <div class="clearfix"></div>
+                                                </div>
+
+                                                <div class="x_content">
+                                                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" id="pmu-tab" data-toggle="tab" href="#pmu" role="tab" aria-controls="pmu" aria-selected="true">PMU</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="pwd-tab" data-toggle="tab" href="#pwd" role="tab" aria-controls="pwd" aria-selected="false">PWD</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="rwd-tab" data-toggle="tab" href="#rwd" role="tab" aria-controls="rwd" aria-selected="false">RWD</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="usdma-tab" data-toggle="tab" href="#usdma" role="tab" aria-controls="usdma" aria-selected="false">USDMA</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="forest-tab" data-toggle="tab" href="#forest" role="tab" aria-controls="forest" aria-selected="false">FOREST</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="tab-content" id="myTabContent">
+                                                        <div class="tab-pane fade show active" id="pmu" role="tabpanel" aria-labelledby="pmu-tab">
+                                                        <div id="columnchart_material" style="width: 600px; height: 300px;"></div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="pwd" role="tabpanel" aria-labelledby="pwd-tab">
+                                                            <div> <canvas id="myChart"></canvas> </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="rwd" role="tabpanel" aria-labelledby="rwd-tab">
+                                                            <div> <canvas id="myChart"></canvas> </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="usdmsa" role="tabpanel" aria-labelledby="usdmsa-tab">
+                                                            <div> <canvas id="myChart"></canvas> </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="forest" role="tabpanel" aria-labelledby="forest-tab">
+                                                            <div> <canvas id="myChart"></canvas> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2><i class="fa fa-bars"></i> Financial Status</h2>
+
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="x_content">
+                                                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">PMU</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">PWD</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">RWD</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">USDMA</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">FOREST</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content" id="myTabContent">
+                                                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                            <div>
+                                                                <center style="height:300px;">
+                                                                    <canvas id="myChartPie" width="400" height="400"></canvas>
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                            <div> <canvas id="myChart"></canvas> </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                                            <div> <canvas id="myChart"></canvas> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /page content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <!-- Report Modal -->
+    @endif
+
+    @if(false)
+        <style>
+            table.rovw th,
+            table.rovw td {
+                text-align: center;
+                padding-top: 2px;
+                border-color: black;
+                padding-bottom: 2px;
+                vertical-align: middle !important;
+            }
+
+            table.rovw th {
+                background-color: #D9D9D9;
+            }
+
+            table.rovw tbody tr th:nth-child(2),
+            table.rovw tbody tr td:nth-child(2),
+            table.rovw tbody tr th:last-child,
+            table.rovw tbody tr td:last-child {
+                text-align: left;
+            }
+        </style>
+
+        {{-- Report Table --}}
+        <div class="row">
+            <div class="col-12">
+                <table class="table rovw table-responsive w-100 table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="3">S. No.</th>
+                            <th rowspan="3">Component (Sub-Activities)</th>
+                            <th rowspan="3">Implementation Agencies</th>
+                            <th rowspan="2">Amount (Allocated)</th>
+                            <th colspan="4">Contract Status</th>
+                            <th colspan="2">Grand Total</th>
+                            <th rowspan="3">Detailed Report</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Award / LOA</th>
+                            <th colspan="2">Balance</th>
+                            <th colspan="2">Award</th>
+                        </tr>
+                        <tr>
+                            <th>INR (in Crore)</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                            <th>Qty</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Component 1 - Enhancing Infrastructure Resilience</th>
+                            <th></th>
+                            <th>435.00</th>
+                            <th>26</th>
+                            <th>203.00</th>
+                            <th>37</th>
+                            <th>232.00</th>
+                            <th>63</th>
+                            <th>435.00</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>1.a: Enhancing the resilience of transport connectivity</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=8') }}" class="btn btn-link">PWD</a>
+                            </td>
+                            <td>390.00</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=8') }}" class="btn btn-link">26</a>
+                            </td>
+                            <td>203.00</td>
+                            <td>27*</td>
+                            <td>187.00</td>
+                            <td>53</td>
+                            <td>390.00</td>
+                            <td>
+                                <b>* 19 Bridges & 8 Slope protection Work</b>
+                                <br>
+                                5 Tender invite and 01 LOA To be issued Amt 55 Cr.  And balance 132 Cr. In DPR Prepration Stage
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>1.b: Enhancing the resilience of health services</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=9') }}" class="btn btn-link">RWD & DMHFW</a>
+                            </td>
+                            <td>0.00</td>
+                            <td>0</td>
+                            <td>-</td>
+                            <td>0</td>
+                            <td>-</td>
+                            <td>0</td>
+                            <td>0.00</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>1.c: Providing disaster shelter</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=9') }}" class="btn btn-link">RWD & USDMA</a>
+                            </td>
+                            <td>45.00</td>
+                            <td>0</td>
+                            <td>-</td>
+                            <td>10</td>
+                            <td>45.00</td>
+                            <td>10</td>
+                            <td>45.00</td>
+                            <td>10 Disaster Shelter</td>
+                        </tr>
+
+                        <tr>
+                            <th></th>
+                            <th>Component 2: Improving Emergency Preparedness and Response</th>
+                            <th></th>
+                            <th>505.00</th>
+                            <th>8</th>
+                            <th>7.50</th>
+                            <th>0</th>
+                            <th>497.50</th>
+                            <th>8</th>
+                            <th>505.00</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>2.a: Strengthening emergency preparedness</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=9') }}" class="btn btn-link">USDMA</a>
+                            </td>
+                            <td>85.00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>85.00</td>
+                            <td>0</td>
+                            <td>85.00</td>
+                            <td>Goods & Equipment</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>2.b: Strenghtening hydromet and early warning systems</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=14') }}" class="btn btn-link">USDMA</a>
+                            </td>
+                            <td>350.00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>350.00</td>
+                            <td>0</td>
+                            <td>350.00</td>
+                            <td>1 EWS & 1 Hyderomet and Equipment</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>2.c: Strengthening SDRF</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=9') }}" class="btn btn-link">RWD & SDRF</a>
+                            </td>
+                            <td>70.00</td>
+                            <td>8</td>
+                            <td>7.50</td>
+                            <td></td>
+                            <td>62.50</td>
+                            <td>8</td>
+                            <td>70.00</td>
+                            <td>Goods & Equipment</td>
+                        </tr>
+
+                        <tr>
+                            <th></th>
+                            <th>Component 3: Preventing and Managing Forest and Other Fires</th>
+                            <th></th>
+                            <th>373.00</th>
+                            <th>4</th>
+                            <th>7.00</th>
+                            <th>33</th>
+                            <th>366.00</th>
+                            <th>37</th>
+                            <th>373.00</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>3.a: Improving general fire management capacity</td>
+                            <td>
+                                <a href="{{ route('mis.projects', 'department=9') }}" class="btn btn-link">RWD & UFES</a>
+                            </td>
+                            <td>290.00</td>
+                            <td>4</td>
+                            <td>7.00</td>
+                            <td>33</td>
+                            <td>283.00</td>
+                            <td>37</td>
+                            <td>290.00</td>
+                            <td>14 Goods Package & 19 Construction works</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>3.b: Improving forest fire prevention and management capacity</td>
+                            <td>FD</td>
+                            <td>83.00</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>83.00</td>
+                            <td>0</td>
+                            <td>83.00</td>
+                            <td>Consultancy & Goods & Equipment</td>
+                        </tr>
+
+                        <tr>
+                            <th></th>
+                            <th>Component 4: Project Management</th>
+                            <th>
+                                <a href="{{ route('mis.projects', 'department=14') }}" class="btn btn-link">USDMA</a>
+                            </th>
+                            <th>164.20</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>164.20</th>
+                            <th></th>
+                            <th>164.20</th>
+                            <th>Project Implementation</th>
+                        </tr>
+
+                        <tr>
+                            <th></th>
+                            <th>Component 5: Contingency Emergency Response Component (CERC)</th>
+                            <th>
+                                <a href="{{ route('mis.projects', 'department=14') }}" class="btn btn-link">USDMA</a>
+                            </th>
+                            <th>0.00</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>0</th>
+                            <th>0.00</th>
+                            <th></th>
+                        </tr>
+
+                        <tr>
+                            <th></th>
+                            <th>Front-end fee</th>
+                            <th></th>
+                            <th>2.80</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>2.80</th>
+                            <th>0</th>
+                            <th>2.80</th>
+                            <th>Front-end-Fee</th>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th colspan="3">Total Amount</th>
+                            <th>1480.00</th>
+                            <th>38</th>
+                            <th>217.50</th>
+                            <th>70</th>
+                            <th>1262.50</th>
+                            <th>108</th>
+                            <th>1480.00</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    @endif
+@stop
+
+<!-- code changes added on 9 feb  -->
+@section('script')
+    @if(false)
+        @if(in_array(auth()->user()->role->department,['PROCUREMENT','USDMA-PROCUREMENT','FOREST-PROCUREMENT','RWD-PROCUREMENT','PWD-PROCUREMENT','PMU-PROCUREMENT']) )
+            <script type="text/javascript">
+                google.charts.load('current', {packages: ['corechart', 'bar']});
+                google.charts.setOnLoadCallback(procurementChart);
+
+                function procurementChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Project Category', 'Total Projects', 'Ongoing Projects', 'Completed Projecs'],
+                        ['Work', {{$procurement['workTotal']}}, {{$procurement['workTotalP']}}, {{$procurement['workTotalC']}}],
+                        ['Goods',{{$procurement['goodsTotal']}}, {{$procurement['goodsTotalP']}}, {{$procurement['goodsTotalC']}}],
+                        ['Consultancy',{{$procurement['consultancyTotal']}}, {{$procurement['consultancyTotalP']}}, {{$procurement['consultancyTotalC']}}],
+                        ['Others',{{$procurement['othersTotal']}} , {{$procurement['othersTotalP']}}, {{$procurement['othersTotalC']}}],
+                    ]);
+
+                    var options = {
+                        vAxis: {
+                            textPosition: 'none',
+                            gridlines: {
+                                color: 'transparent'
+                            },
+                            textStyle: { color: 'white' }
+                        },
+                        hAxis: {
+                            gridlines: {
+                                color: 'transparent'
+                            },
+                            textStyle: { color: 'black' }
+                        },
+                        annotations: {
+                            alwaysOutside: true,
+                            textStyle: {
+                                fontSize: 25,
+                                color: 'green'
+                            }
+                        },
+                        chart: {
+                            title: '',
+                            subtitle: ''
+                        },
+                        xAxis: { textPosition: '' }
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('procuremnt_chart'));
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
+                }
+
+                google.charts.setOnLoadCallback(procurementContract);
+
+                function procurementContract() {
+                    var data = new google.visualization.arrayToDataTable([
+                        ['Name', 'Values'],
+                        ["Works", {{ $contract['workTotal'] }} ],
+                        ["Goods", {{ $contract['goodsTotal'] }} ],
+                        ["Consultancy", {{ $contract['consultancyTotal'] }} ],
+                        ["Others",  {{ $contract['othersTotal'] }} ],
+                    ]);
+
+                    var decimalFormatter = new google.visualization.NumberFormat({
+                        pattern: '##0.00'
+                    });
+
+                    decimalFormatter.format(data, 1);
+
+                    var options = {
+                        title: '',
+                        hAxis: {
+                            title: 'Project Category',
+                        },
+                        vAxis: {
+                            title: '',
+                            gridlines: { count: 0 }
+                        },
+                        width: '80%',
+                        legend: { position: 'none' },
+                        chart: { title: '', subtitle: '' },
+                        bars: 'vertical',
+                        axes: {
+                            x: {
+                                0: { side: 'left', label: 'Project Category' }
+                            }
+                        },
+                        bar: {
+                            groupWidth: "80%"
+                        },
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('contract_chart'));
+                    chart.draw(data, options);
+                }
+            </script>
+        @elseif(in_array(CheckESLevelThree(),[1,2,3]))
+            <script type="text/javascript">
+                google.charts.load("current", {packages:['corechart']});
+                google.charts.setOnLoadCallback(PMU);
+
+                function PMU() {
+                    var data = new google.visualization.arrayToDataTable([
+                        ['Project Category', '',{ role: "style" } ],
+                        ["Total Projects", {{$projects['workTotal']}},"#007bff"],
+                        ["Ongoing Projects", {{$projects['workTotalP']}},"#dc3545"],
+                        ["Completed Projecs", {{$projects['workTotalC']}},"#f4b400"],
+                    ]);
+
+                    var options = {
+                        vAxis: {
+                            gridlines: {
+                                color: 'transparent'
+                            },
+                        },
+                        hAxis: {
+                            gridlines: {
+                                color: 'transparent'
+                            },
+                        },
+                        title: "",
+                        width: 800,
+                        height: 550,
+                        bar: {groupWidth: "70%"},
+                        legend: { position: "none" },
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById("PMU_LEVEL_2"));
+                        chart.draw(data, options);
+                }
+            </script>
+        @elseif(in_array(auth()->user()->role->level,["TWO","THREE"]))
+            <script type="text/javascript">
+                google.charts.load('current', {packages: ['corechart', 'bar']});
+                google.charts.setOnLoadCallback(PMU);
+
+                function PMU() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Project Category', 'Total Projects', 'Ongoing Projects', 'Completed Projecs'],
+                        ['Work', {{$projects['workTotal']}}, {{$projects['workTotalP']}}, {{$projects['workTotalC']}}],
+                        ['Goods', {{$projects['goodsTotal']}}, {{$projects['goodsTotalP']}}, {{$projects['goodsTotalC']}}],
+                        ['Consultancy',{{$projects['consultancyTotal']}} , {{$projects['consultancyTotalP']}}, {{$projects['consultancyTotalC']}}],
+                        ['Others',{{$projects['othersTotal']}} , {{$projects['otherTotalP']}}, {{$projects['otherTotalC']}}],
+                    ]);
+
+                    var options = {
+                        vAxis: {
+                            textPosition: 'none',
+                            gridlines: {
+                                color: 'transparent'
+                            },
+                            textStyle: { color: 'white' }
+                        },
+                        hAxis: {
+                            gridlines: {
+                                color: 'transparent'
+                            },
+                            textStyle: { color: 'black' }
+                        },
+                        annotations: {
+                            alwaysOutside: true,
+                            textStyle: {
+                                color: 'green'
+                                fontSize: 25,
+                            }
+                        },
+                        chart: {
+                            title: '',
+                            subtitle: ''
+                        },
+                        xAxis: { textPosition: '' }
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('PMU_LEVEL_2'));
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
+                }
+
+                google.charts.load("current", {packages:["corechart"]});
+                google.charts.setOnLoadCallback(financialChart);
+
+                function financialChart() {
+                    var data = new google.visualization.arrayToDataTable([
+                        ['Name', 'Values'],
+                        ["Works", {{$financialData['Works']}}],
+                        ["Goods", {{$financialData['Goods']}}],
+                        ["Consultancy", {{$financialData['Consultancy']}}],
+                        ["Others", {{$financialData['others']}}],
+                        @if(auth()->user()->role->level != "THREE")
+                        ["Office Expense", {{$financialData['officeExense']}}],
+                        @endif
+                    ]);
+
+                    var decimalFormatter = new google.visualization.NumberFormat({
+                        pattern: '##0.00'
+                    });
+
+                    decimalFormatter.format(data, 1);
+
+                    var options = {
+                        title: '',
+                        hAxis: {
+                            title: 'Project Category',
+                        },
+                        vAxis: {
+                            title: '',
+                            gridlines: { count: 0 }
+                        },
+                        width: '80%',
+                        legend: { position: 'none' },
+                        chart: { title: '', subtitle: '' },
+                        bars: 'vertical',
+                        axes: {
+                            x: {
+                                0: { side: 'left', label: 'Project Category' }
+                            }
+                        },
+                        bar: {
+                            groupWidth: "80%"
+                        },
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('financialChart'));
+                    chart.draw(data, options);
+                }
+            </script>
+        @else
+            <script type="text/javascript">
+                google.charts.load('current', {packages: ['corechart', 'bar']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Project Category', 'Total Projects', 'Ongoing Projects', 'Completed Projecs'],
+                    ['Work', {{$projects['workTotal']}}, {{$projects['workTotalP']}}, {{$projects['workTotalC']}}],
+                    ['Goods', {{$projects['goodsTotal']}}, {{$projects['goodsTotalP']}}, {{$projects['goodsTotalC']}}],
+                    ['Consultancy',{{$projects['consultancyTotal']}} , {{$projects['consultancyTotalP']}}, {{$projects['consultancyTotalC']}}],
+                    ['Others',{{$projects['othersTotal']}} , {{$projects['otherTotalP']}}, {{$projects['otherTotalC']}}],
+                    ]);
+
+
+                    var options = {
+                    vAxis: {
+                        textPosition: 'none',
+                        gridlines: {
+                        color: 'transparent'
+                        },
+                        textStyle: { color: 'white' }
+                    },
+                    hAxis: {
+                        gridlines: {
+                        color: 'transparent'
+                        },
+                        textStyle: { color: 'black' }
+                    },
+                    annotations: {
+                        alwaysOutside: true,
+                        textStyle: {
+                        fontSize: 25,
+                        color: 'green'
+                        }
+                    },
+                    chart: {
+                        title: '',
+                        subtitle: ''
+                    },
+                    xAxis: { textPosition: '' }
+                    };
+                    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                    // google.visualization.events.addListener(chart, 'select', selectHandler);
+                    // function selectHandler() {
+                    //     var selectedItem = chart.getSelection()[0];
+                    //     if (selectedItem) {
+                    //         // Get data for the selected bar
+                    //         var selectedData = data.getValue(selectedItem.row, 0);
+                    //         // var selectedStatus = data.getValue(selectedItem.row, 1);
+                    //         var selectedLegend = data.getColumnLabel(selectedItem.column);
+
+
+                    //         alert(selectedLegend);
+                    //         // window.location.href = '/your-redirect-url?projectType=' + selectedData;
+                    //     }
+                    // }
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
+                }
+
+                google.charts.setOnLoadCallback(drawChart1);
+
+                function drawChart1() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Project Category', 'Total Cost'],
+                        ["Works", {{$financialData['Works'] ?? 0 }}],
+                        ["Goods", {{$financialData['Goods'] ?? 0 }}],
+                        ["Consultancy", {{$financialData['Consultancy'] ?? 0 }}],
+                        ["Others", {{$financialData['others'] ?? 0 }}],
+                        ["Office Expense", {{$financialData['officeExense'] ?? 0 }}],
+                    ]);
+
+                    var decimalFormatter = new google.visualization.NumberFormat({
+                        pattern: '##0.00'
+                    });
+
+                    decimalFormatter.format(data, 1);
+
+                    var options = {
+                        title: '',
+                        hAxis: {
+                            title: 'Project Category',
+                        },
+                        vAxis: {
+                            title: '',
+                            gridlines: { count: 0 }
+                        },
+                        width: '80%',
+                        legend: { position: 'none' },
+                        chart: { title: '', subtitle: '' },
+                        bars: 'vertical',
+                        axes: {
+                            x: {
+                                0: { side: 'left', label: 'Project Category' }
+                            }
+                        },
+                        bar: {
+                            groupWidth: "80%"
+                        },
+                    };
+
+                    var chart1 = new google.visualization.ColumnChart(document.getElementById('columnchart_material1'));
+                    chart1.draw(data, options);
+                }
+            </script>
+        @endif
+    @endif
+
+    <script>
+        $(document).ready(function() {
+            $('.buttonParam').on('click', function() {
+                var paramName = $(this).data('name');
+                var paramValue = $(this).data('value');
+
+                addOrReplaceParameter(paramName, paramValue);
+            });
+
+            function addOrReplaceParameter(param, value) {
+                const url = new URL(window.location.href);
+                url.searchParams.set(param, value);
+                window.location.href = url.href;
+            }
+        });
+    </script>
+@stop

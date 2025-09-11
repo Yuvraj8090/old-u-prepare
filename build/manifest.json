@@ -1,0 +1,56 @@
+{
+  "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.eot": {
+    "file": "assets/fontawesome-webfont-50bbe919.eot",
+    "src": "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.eot"
+  },
+  "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.svg": {
+    "file": "assets/fontawesome-webfont-8e358638.svg",
+    "src": "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.svg"
+  },
+  "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.ttf": {
+    "file": "assets/fontawesome-webfont-ae19e2e4.ttf",
+    "src": "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.ttf"
+  },
+  "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.woff": {
+    "file": "assets/fontawesome-webfont-adbc4f95.woff",
+    "src": "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.woff"
+  },
+  "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.woff2": {
+    "file": "assets/fontawesome-webfont-7dacf83f.woff2",
+    "src": "public/asset/vendors/font-awesome/fonts/fontawesome-webfont.woff2"
+  },
+  "public/asset/vendors/iCheck/skins/flat/green.png": {
+    "file": "assets/green-34858518.png",
+    "src": "public/asset/vendors/iCheck/skins/flat/green.png"
+  },
+  "public/asset/vendors/iCheck/skins/flat/green@2x.png": {
+    "file": "assets/green@2x-af0c9f69.png",
+    "src": "public/asset/vendors/iCheck/skins/flat/green@2x.png"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-972c31f0.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-e1a1f37c.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/fontawesome-webfont-50bbe919.eot",
+      "assets/fontawesome-webfont-7dacf83f.woff2",
+      "assets/fontawesome-webfont-adbc4f95.woff",
+      "assets/fontawesome-webfont-ae19e2e4.ttf",
+      "assets/fontawesome-webfont-8e358638.svg",
+      "assets/green-34858518.png",
+      "assets/green@2x-af0c9f69.png"
+    ],
+    "css": [
+      "assets/app-e1a1f37c.css"
+    ],
+    "file": "assets/app-67c1fef2.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}
